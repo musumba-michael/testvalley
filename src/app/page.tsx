@@ -1,95 +1,120 @@
+"use client";
 import Image from "next/image";
-import styles from "./page.module.css";
+import {
+  AppBar,
+  Box,
+  Container,
+  IconButton,
+  Toolbar,
+  useMediaQuery,
+  useTheme,
+  InputBase,
+  Paper,
+} from "@mui/material";
+import { alpha } from "@mui/material/styles";
+import SearchIcon from "@mui/icons-material/Search";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import logo from "./images/logo-mobile-new.svg";
+import { BannerSection } from "./Home/Banner/Banner";
+import { ShortcutSection } from "./Home/Shortcut/Shortcut";
+import { CollectionsSection } from "./Home/Collections/Collection";
 
 export default function Home() {
+  const theme = useTheme();
+  const desktopDevice = useMediaQuery(theme.breakpoints.up("md"));
+  if (desktopDevice) {
+    return (
+      <Paper>
+        <AppBar position="static" elevation={0}>
+          <Toolbar variant="dense">
+            <Image src={logo} alt="logo" />
+            <Box flexGrow={1} />
+            <Box
+              sx={{
+                position: "relative",
+                borderRadius: theme.shape.borderRadius,
+                backgroundColor: alpha(theme.palette.common.white, 0.15),
+                "&:hover": {
+                  backgroundColor: alpha(theme.palette.common.white, 0.25),
+                },
+                marginRight: theme.spacing(2),
+                marginLeft: 0,
+                width: "100%",
+                [theme.breakpoints.up("sm")]: {
+                  marginLeft: theme.spacing(3),
+                  width: "auto",
+                },
+              }}
+            >
+              <Box
+                sx={{
+                  padding: theme.spacing(0, 2),
+                  height: "100%",
+                  position: "absolute",
+                  pointerEvents: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <SearchIcon />
+              </Box>
+              <InputBase
+                placeholder="살까말까 고민된다면 검색해보세요!"
+                inputProps={{ "aria-label": "search" }}
+                sx={{
+                  color: "inherit",
+                  "& .MuiInputBase-input": {
+                    padding: theme.spacing(1, 1, 1, 0),
+                    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+                    transition: theme.transitions.create("width"),
+                    width: "100%",
+                    [theme.breakpoints.up("md")]: {
+                      width: "20ch",
+                    },
+                  },
+                }}
+              />
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <BannerSection />
+        <Container>
+          <ShortcutSection />
+          <CollectionsSection />
+        </Container>
+      </Paper>
+    );
+  }
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <Container>
+      <Paper elevation={0}>
+        <AppBar position="static" elevation={0}>
+          <Toolbar variant="dense">
+            <Image src={logo} alt="logo" />
+            <Box flexGrow={1} />
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <NotificationsIcon />
+            </IconButton>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <SearchIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <BannerSection />
+        <ShortcutSection />
+        <CollectionsSection />
+      </Paper>
+    </Container>
   );
 }
