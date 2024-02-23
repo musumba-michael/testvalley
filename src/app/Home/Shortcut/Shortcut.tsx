@@ -5,7 +5,11 @@ import { ShortcutView } from "./ShortcutView";
 const fetchShortcuts = async (
   params: GetShortcutQueryParams
 ): Promise<Shortcut[]> => {
-  const response = await fetch("https://api.testvalley.kr/main-shortcut/all");
+  const response = await fetch("https://api.testvalley.kr/main-shortcut/all", {
+    next: {
+      revalidate: 0,
+    },
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch Shortcuts: ${response.statusText}`);

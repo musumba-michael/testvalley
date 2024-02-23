@@ -10,7 +10,12 @@ const fetchCollections = async (
   params: GetCollectionQueryParams
 ): Promise<Collection[]> => {
   const response = await fetch(
-    "https://api.testvalley.kr/collections?prearrangedDiscount"
+    "https://api.testvalley.kr/collections?prearrangedDiscount",
+    {
+      next: {
+        revalidate: 0,
+      },
+    }
   );
 
   if (!response.ok) {

@@ -4,7 +4,11 @@ import { BannerSlider } from "../../components/BannerSlider/BannerSlider";
 import { Banner, GetBannerQueryParams } from "@/app/types";
 
 async function fetchBanners(params: GetBannerQueryParams): Promise<Banner[]> {
-  const response = await fetch("https://api.testvalley.kr/main-banner/all");
+  const response = await fetch("https://api.testvalley.kr/main-banner/all", {
+    next: {
+      revalidate: 0,
+    },
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch Banner: ${response.statusText}`);
